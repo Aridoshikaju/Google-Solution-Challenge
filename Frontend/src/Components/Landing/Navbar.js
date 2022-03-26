@@ -2,15 +2,24 @@ import React from 'react'
 import {Navbar,Nav,NavDropdown,Container} from 'react-bootstrap'
 import { useState } from 'react'
 import LoginDonate from './Login_button'
-import Logo from "./images/download.png"
+import Logo from "../Shared/images/download.png"
 
 function Navbar_top() {
     const [expanded,setExpand] = useState(false)
-
+    const nab_bar_conrol = ()=>{
+        if(!expanded)
+        {
+            setExpand("expanded");
+        }
+        else
+        {
+            setExpand(false);
+        }
+    }
    return (
     <div>
 <Container fluid>
-<Navbar bg="light" expand="lg" fixed="top" expanded={expanded}>
+<Navbar bg="light" expand="lg" expanded={expanded}>
   <Container fluid>
     <Navbar.Brand href="#">
     <img
@@ -22,17 +31,7 @@ function Navbar_top() {
         />
         Navbar scroll
     </Navbar.Brand>
-    <Navbar.Toggle aria-controls="navbarScroll" onClick={() => {
-        if(!expanded)
-        {
-            setExpand("expanded");
-        }
-        else
-        {
-            setExpand(false);
-        }
-        }}
-        />
+    <Navbar.Toggle aria-controls="navbarScroll" onClick={ nab_bar_conrol } />
     <Navbar.Collapse id="navbarScroll">
     <Nav
         className="me-auto my-2 my-lg-0"

@@ -24,7 +24,7 @@ const dumb={
     second:'Nothing'
 }
 
-db.collection('trial').doc('1st').set(dumb)
+// db.collection('trial').doc('1st').set(dumb)
 
 // db.then(()=>{
 //     app.listen(3005);

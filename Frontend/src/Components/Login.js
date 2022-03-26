@@ -27,6 +27,21 @@ export default function Login() {
             message: message,}
             });
         }
+    const handleAuthSubmit = async (event)=>{
+        event.preventDefault();
+
+        fetch('https://localhost:3005/api/auth/signup',{
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({
+                name: ,
+                email: ,
+                password: 
+            })
+        })
+    }
         
     return (
         <div>

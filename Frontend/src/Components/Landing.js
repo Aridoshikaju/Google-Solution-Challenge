@@ -1,10 +1,12 @@
 import React from 'react'
-import Slideshow from './landing/Slideshow'
-import Navbar from './landing/Navbar'
+import Slideshow from './Shared/Slideshow'
+import Navbar from './Landing/Navbar'
+import Auth from './Login/Auth'
 function Landing() {
   return (
     <div>
         <a id="scrool_to_top" href="#action1"></a>
+        <Auth/>
         <Navbar/>
         <Slideshow/>
         <Slideshow/>
