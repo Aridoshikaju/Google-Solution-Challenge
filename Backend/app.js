@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser= require('body-parser');
+const {db} = require('./Database/config')
 
 const login = require('./Routes/login')
 
@@ -18,4 +19,17 @@ app.use((error,req,res,next)=>{
     res.json({messgae:error.messgae || 'Unknown error has occured at the server side'})
 })
 
-app.listen(3000);
+const dumb={
+    first:'something',
+    second:'Nothing'
+}
+
+db.collection('trial').doc('1st').set(dumb)
+
+// db.then(()=>{
+//     app.listen(3005);
+// })
+// .catch((err)=>{
+//     console.log(err)
+// })
+app.listen(3005);
