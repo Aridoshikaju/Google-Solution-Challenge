@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+// import Partner from './Components/landing/Partner';
+// import Provider from './Components/Provider';
+// import Consumer from './Components/Consumer';
+// import ReactDOM from 'react-dom';
 import './App.css';
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+// import Cards from './Components/news/Cards';
+// import News_Add from './Components/Admin/News_Add';
+import Landing from './Components/Landing';
+import News from './Components/News';
+import Mission from './Components/Mission';
+import Admin from './Components/Admin';
+import Footer from './Components/Footer';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Landing/>
+      <Mission/>
+      <News/>
+      <Footer/>
+      {/* <Provider/> */}
+      {/* <Admin/> */}
+      
     </div>
   );
 }

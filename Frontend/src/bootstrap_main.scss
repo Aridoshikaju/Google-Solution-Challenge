@@ -1,0 +1,17 @@
+// Custom.scss
+// Option A: Include all of Bootstrap
+
+$web-color-2: rgb(248, 164, 38);
+$box-shadow: 0 0.5rem 1rem rgba($web-color-2, 0.15);
+
+$utilities: (
+  "shadow": (
+    property: box-shadow,
+    class: shadow,
+    values: (
+      null: $box-shadow,
+    ),
+  ),
+);
+
+@import "../node_modules/bootstrap/scss/bootstrap";

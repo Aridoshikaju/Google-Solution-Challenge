@@ -1,0 +1,32 @@
+.live_count {
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.87),
+      rgba(5, 5, 5, 0.404) 100%
+    ),
+    url("../images/food_distribute.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center top;
+  align-items: center;
+}
+
+.avatar {
+  cursor: pointer;
+}
+.avatar_text {
+  color: white;
+}
+.avatar:hover {
+  font-size: large;
+}
+
+@media only screen and (min-width: 500px) {
+  .live_count {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 7em;
+  }
+}
+/* linear-gradient(to bottom,rgba(0, 0, 0, 0.87), rgba(5, 5, 5, 0.404) 100%) , url(../images/food_distribute.jpg); */
