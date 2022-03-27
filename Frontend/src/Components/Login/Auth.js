@@ -29,7 +29,7 @@ function Auth() {
   // true means it's the consumer
   const [errors, setErrors] = useState({});
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // get our new errors
     const newErrors = findFormErrors();
@@ -37,9 +37,31 @@ function Auth() {
     if (Object.keys(newErrors).length > 0) {
       // We got errors!
       setErrors(newErrors);
-    } else {
-      // No errors! Put any logic here for the form submission!
-      alert("Thank you for your feedback!");
+    } 
+    else 
+    {
+
+    try{
+        if(isLoginMode)
+        {
+            const response = await fetch('https://localhost:5000/api/user/signup',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ...loginDetails
+                })
+            });
+        }
+        else
+        {
+            whoSignup?():()
+        }
+    }
+    catch (err){
+        console.log(err)
+    }
     }
   };
 
@@ -106,6 +128,26 @@ function Auth() {
       <div className="Formbox-Container">
         <h3>{Title}</h3>
         <Form classname="Form-holder">
+            <div style={{display: "none"}}>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>{whoSignup}</Form.Label>
+                <Form.Control
+                  required
+                  placeholder="Enter Email"
+                  type="email"
+                  onChange={(event) => {
+                    setLoginDetails({
+                      ...loginDetails,
+                      email: event.target.value,
+                    });
+                  }}
+                  isInvalid={!!errors.name}
+                />
+                <Form.Control.Feedback id="invalid-feedback" type="invalid">
+                  Invalid Email ID.
+                </Form.Control.Feedback>
+              </Form.Group> 
+              </div>           
           {isLoginMode ? (
             <>
               <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -150,16 +192,19 @@ function Auth() {
               <Form.Group className="mb-3" controlId="formBasicpasswd">
                 <Form.Label>User Type</Form.Label>
                 <Form.Control as="select" onChange={(event)=>{
-                    console.log(event.target.value)
-                    if (event.target.value === 2) {
-                        setWhoSignup(false);
-                      }
-                      if (event.target.value === 1) {
-                        setWhoSignup(true);
-                      }
+                    console.log(event.target.value);
+                    setWhoSignup(!whoSignup);
+                    // if (event.target.value == "Producer") {
+                    //     console.log("Hello");
+                    //         setWhoSignup(false);
+                    //   }
+                    //   if (event.target.value == "Consumer") {
+                    //     console.log("Hello this is 2");
+                    //           setWhoSignup(true);
+                    //   }
                 }} className="select-city" aria-label="City">
-                  <option value="1">Consumer</option>
-                  <option value="2">Producer</option>
+                  <option value="Consumer">Consumer</option>
+                  <option value="Producer">Producer</option>
                   <Form.Control
                     required
                     placeholder="Consumer"
@@ -255,13 +300,16 @@ function Auth() {
               <Form.Group className="mb-3" controlId="formBasicpasswd">
                 <Form.Label>User Type</Form.Label>
                 <Form.Control as="select" onChange={(event)=>{
-                    console.log(event.target.value)
-                    if (event.target.value === 2) {
-                        setWhoSignup(false);
-                      }
-                      if (event.target.value === 1) {
-                        setWhoSignup(true);
-                      }
+                    console.log(event.target.value);
+                    setWhoSignup(!whoSignup);
+                    // if (event.target.value == "Producer") {
+                    //     console.log("Hello");
+                    //         setWhoSignup(true);
+                    //   }
+                    //   if (event.target.value == "Consumer") {
+                    //     console.log("Hello this is 2");
+                    //           setWhoSignup(false);
+                    //   }
                 }} className="select-city" aria-label="City">
                   <option value="1">Consumer</option>
                   <option value="2">Producer</option>
