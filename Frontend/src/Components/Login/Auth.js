@@ -16,14 +16,15 @@ function Auth() {
     email: "",
     password: "",
     age: "",
-    Phone_no: "",
+    phone_no: "",
     id: "",
   });
   const [providerConsumerDetails, setproviderConsumerDetails] = useState({
     hotel_name: "",
     owner_name: "",
+    email:"",
     pincode: "",
-    Phone_no: "",
+    phone_no: "",
     password: "",
   });
   // true means it's the consumer
@@ -40,11 +41,12 @@ function Auth() {
     } 
     else 
     {
+    let response
 
     try{
         if(isLoginMode)
         {
-            const response = await fetch('https://localhost:5000/api/user/signup',{
+            response = await fetch('https://localhost:5000/api/user/login',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -56,11 +58,36 @@ function Auth() {
         }
         else
         {
-            whoSignup?():()
+            if(whoSignup)
+            {
+            response = await fetch('https://localhost:5000/api/user/signup/user',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ...setSignupDetails
+                })
+            })
+            }
+            if(!whoSignup)
+            {
+              response = await fetch('https://localhost:5000/api/user/signup/hotel',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ...providerConsumerDetails
+                })
+            });
         }
+      }
+        const response_data = await response.json();
+        console.log(response_data)
     }
     catch (err){
-        console.log(err)
+        console.log(err);
     }
     }
   };
@@ -261,7 +288,7 @@ function Auth() {
                   required
                   placeholder="Enter Age"
                   type="number"
-                  onChange={(e) => setField(true, "Phone_no", e.target.value)}
+                  onChange={(e) => setField(true, "phone_no", e.target.value)}
                   isInvalid={!!errors.name}
                 />
                 <Form.Control.Feedback id="invalid-feedback" type="invalid">
@@ -355,6 +382,19 @@ function Auth() {
                   Enter Valid Name
                 </Form.Control.Feedback>
               </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  required
+                  placeholder="Enter Email"
+                  type="text"
+                  onChange={(e) => setField(false, "email", e.target.value)}
+                  isInvalid={!!errors.name}
+                />
+                <Form.Control.Feedback id="invalid-feedback" type="invalid">
+                  Invalid Email ID.
+                </Form.Control.Feedback>
+              </Form.Group>              
               <Form.Group className="mb-3" controlId="formBasicName">
                 <Form.Label>Pincode</Form.Label>
                 <Form.Control
@@ -374,7 +414,7 @@ function Auth() {
                   required
                   placeholder="Enter Age"
                   type="number"
-                  onChange={(e) => setField(false, "Phone_no", e.target.value)}
+                  onChange={(e) => setField(false, "phone_no", e.target.value)}
                   isInvalid={!!errors.name}
                 />
                 <Form.Control.Feedback id="invalid-feedback" type="invalid">

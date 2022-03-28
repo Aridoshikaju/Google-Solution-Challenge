@@ -1,51 +1,9 @@
-import React, { useState } from 'react'
 import React from 'react'
-
+import Auth from './Login/Auth'
 export default function Login() {
-    //logged in or not??
-    const [loggedin,setLoggedin] = useState(localStorage.getItem("validation"))
-    //Variable for taking details of login
-    const [loginDetails,setLoginDetails] = useState({username:"",password:""})
-    //for handdleing error such as wrong username or password
-    const [inputError,setInputError] = useState(
-        {
-            username:{error:false,message:""},  
-            // error set to false as there are no error during the beging 
-            // if after verification error are there then the error will be set to true
-            password:{error:false,message:""}
-        })
-    const hendleLoginInput = (key,value)=>{
-        setLoginDetails({
-            ...loginDetails,
-            [key]:value})
-        }
-    const handleInputError = (key, status, message) => {
-        setInputErrorHandler({
-            ...inputErrorHandler,
-            [key]: {
-            error: status,
-            message: message,}
-            });
-        }
-    const handleAuthSubmit = async (event)=>{
-        event.preventDefault();
-
-        fetch('https://localhost:3005/api/auth/signup',{
-            method: 'POST',
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify({
-                name: ,
-                email: ,
-                password: 
-            })
-        })
-    }
-        
-    return (
-        <div>
-        
-        </div>
-    )
+  return (
+    <div>
+        <Auth />
+    </div>
+  )
 }

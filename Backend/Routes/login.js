@@ -1,6 +1,5 @@
 const express = require('express');
 const { check } = require('express-validator')
-const {db} = require('../Database/config')
 
 const router = express.Router();
 
@@ -14,10 +13,9 @@ router.get('/',login_controller.getUsers)
 //     check('password').isLength({min: 6})
 // ] ,login_controller.signup )
 
-router.post('/signup',login_controller.signup)
+router.post('/signup/user',login_controller.signup_user)
+router.post('/signup/hotel',login_controller.signup_hotel)
 
-router.post('/login',[
-    check()
-] ,login_controller.login)
+router.post('/login',login_controller.login)
 
 module.exports = router;

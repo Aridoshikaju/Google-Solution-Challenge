@@ -2,7 +2,7 @@ import React from 'react'
 import {Navbar,Nav,NavDropdown,Container} from 'react-bootstrap'
 import { useState } from 'react'
 import LoginDonate from './Login_button'
-import Logo from "../Shared/images/download.png"
+import Logo from "./download.png"
 
 function Navbar_top() {
     const [expanded,setExpand] = useState(false)
