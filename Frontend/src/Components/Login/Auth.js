@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
+import {useNavigate} from 'react-router-dom'
 import "./Auth.css";
 import Form from "react-bootstrap/Form";
 // import Producer from './Login/Producer';
 
 function Auth() {
+  const navigate = useNavigate()
   const [isLoginMode, setIsLoginMode] = useState(true);
   // whoSignup true means it's the consumer
   const [whoSignup, setWhoSignup] = useState(true);
@@ -38,7 +40,7 @@ function Auth() {
     const newErrors = {}
     // Conditional logic:
     if (Object.keys(newErrors).length > 0) {
-      // We got errors!
+      // We got errors
       setErrors(newErrors);
       console.log("errors in the form")
     } 
@@ -48,6 +50,7 @@ function Auth() {
     try{
         if(isLoginMode)
         {
+          console.log("here")
             response = await fetch('http://localhost:5000/api/auth/login',{
                 method: 'POST',
                 headers: {
@@ -57,13 +60,11 @@ function Auth() {
                     ...loginDetails
                 })
             });
-            console.log(response)
         }
         else
         {
             if(whoSignup)
             {
-              console.log("Sending request")
             response = await fetch('http://localhost:5000/api/auth/signup/user',{
                 method: 'POST',
                 headers: {
@@ -76,7 +77,6 @@ function Auth() {
             }
             if(!whoSignup)
             {
-              console.log("Inside who sgnup")
               response = await fetch('http://localhost:5000/api/auth/signup/hotel',{
               // response = await fetch('http://localhost:5000/api/signup/hotel',{
                 method: 'POST',
@@ -90,7 +90,9 @@ function Auth() {
         }
       }
         const response_data = await response.json();
-        console.log(response_data)
+        localStorage.setItem('userData',JSON.stringify({email:response_data.email,who:response_data.who,name:response_data.name,token:response_data.token}))
+        console.log("response from the server",response_data)
+        navigate(`/`)
     }
     catch (err){
         console.log(err);

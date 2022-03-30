@@ -31,7 +31,7 @@ const check_if_unique = async (email, check_in) => {
     console.log("failed to get data");
   }
   //If the user exists the flag returns true
-  console.log("unique?" ,flag)
+  console.log("unique?" ,flag,check_in)
   return flag;
 };
 
@@ -90,7 +90,7 @@ const signup_user = async (req, res, next) => {
   } catch {
     console.log("error creating token");
   }
-  res.status(201).json({ email: newUser.email, token: token });
+  res.status(201).json({ email: newUser.email,who:'user',userName:newUser.name, token: token });
 };
 
 const signup_hotel = async (req, res, next) => {
@@ -99,7 +99,7 @@ const signup_hotel = async (req, res, next) => {
     req.body;
   newUser = {
     hotel_name: hotel_name,
-    owner_name: owner_name,
+    name: owner_name,
     email: email,
     pincode: pincode,
     phone_no: phone_no,
@@ -110,17 +110,18 @@ const signup_hotel = async (req, res, next) => {
   const flag = await check_if_unique(email, "hotel");
   try {
     if (!flag) {
-      const data = await loc.collection(email).doc("base").set(newUser);
+      console.log("now fially here")
+      loc.collection(email).doc("base").set(newUser);
       console.log("New hotel user added successfully");
     } else {
       console.log("hotel user already exits");
-      res.ststus(400).json({ error: "hotel USer Already exists" });
-      next()
+      res.status(400).json({ error: "hotel USer Already exists" });
+      return
     }
   } catch {
     console.log("Failed to add hotel user");
-    res.ststus(400).json({ error: "failed to add user" });
-    next()
+    res.status(400).json({ error: "failed to add user" });
+    return
   }
   try {
     token = jwt.sign(
@@ -133,10 +134,11 @@ const signup_hotel = async (req, res, next) => {
   } catch {
     console.log("error creating token");
   }
-  res.status(201).json({ email: newUser.email, token: token });
+  res.status(201).json({ email: newUser.email,who:'hotel',userName:newUser.name, token: token });
 };
 
 const login = async (req, res, next) => {
+  console.log("request for login has arrived")
   const { email, password } = req.body;
   const user = {
     email: email,
@@ -150,41 +152,50 @@ const login = async (req, res, next) => {
 
   let logged; //to decide who logged in
   if (user_flag) {
-    if (Check_password(email, password, "user") == true) {
+    if (Check_password(email, password, "user")) {
       logged = "user";
     } else {
-      logged = "Credentials don't match";
+      logged=null
+      // logged = "Credentials don't match";
     }
   } else if (hotel_flag) {
     if (Check_password(email, password, "hotel")) {
       logged = "hotel";
     } else {
-      logged = "Credentials don't match";
+      logged=null
+      // logged = "Credentials don't match";
     }
   } else if (admin_flag) {
     if (Check_password(email, password, "admin")) {
       logged = "admin";
     } else {
-      logged = "Credentials don't match";
+      logged=null
+      // logged = "Credentials don't match";
     }
   } else {
-    logged = false;
+    logged = null;
   }
+  console.log("logged:",logged)
   try {
-    token = jwt.sign(
-      { email: user.email, who: logged },
-      "not_meant_to_be_shared",
-      {
-        expiresIn: "1h",
+    if(logged!=null){
+      token = jwt.sign(
+        { email: user.email, who: logged },
+        "not_meant_to_be_shared",
+        {
+          expiresIn: "1h",
+        }
+        );
       }
-    );
   } catch {
     console.log("error creating token");
   }
-  if (!logged) {
-    res.status(401).json({ email: user.email, token: token });
+  console.log(logged)
+  if (logged == null) {
+    res.status(401).json({ error:"The user does not exist in our data base" });
   } else {
-    res.status(201).json({ email: user.email, token: token });
+    const data = await loc.doc(logged).collection(email).doc('base').get()
+    const name = data.data().name
+    res.status(201).json({ email: user.email,who:logged,name:name, token: token });
   }
 };
 

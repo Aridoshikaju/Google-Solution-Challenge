@@ -1,9 +1,13 @@
 const express = require('express');
 const { check } = require('express-validator')
+const check_auth = require('../middleware/middle-auth')
 
 const router = express.Router();
 
 login_controller = require('../controllers/login')
+
+// router.use(check_auth)
+//Not now
 
 router.get('/',login_controller.getUsers)
 
