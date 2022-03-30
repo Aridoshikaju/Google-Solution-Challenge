@@ -6,6 +6,7 @@ import Form from "react-bootstrap/Form";
 
 function Auth() {
   const [isLoginMode, setIsLoginMode] = useState(true);
+  // whoSignup true means it's the consumer
   const [whoSignup, setWhoSignup] = useState(true);
   const [loginDetails, setLoginDetails] = useState({
     email: "",
@@ -27,26 +28,27 @@ function Auth() {
     phone_no: "",
     password: "",
   });
-  // true means it's the consumer
   const [errors, setErrors] = useState({});
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log("Submit pressed")
     // get our new errors
-    const newErrors = findFormErrors();
+    // const newErrors = findFormErrors();
+    const newErrors = {}
     // Conditional logic:
     if (Object.keys(newErrors).length > 0) {
       // We got errors!
       setErrors(newErrors);
+      console.log("errors in the form")
     } 
     else 
     {
     let response
-
     try{
         if(isLoginMode)
         {
-            response = await fetch('https://localhost:5000/api/user/login',{
+            response = await fetch('http://localhost:5000/api/auth/login',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -55,24 +57,28 @@ function Auth() {
                     ...loginDetails
                 })
             });
+            console.log(response)
         }
         else
         {
             if(whoSignup)
             {
-            response = await fetch('https://localhost:5000/api/user/signup/user',{
+              console.log("Sending request")
+            response = await fetch('http://localhost:5000/api/auth/signup/user',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    ...setSignupDetails
+                    ...signupDetails
                 })
             })
             }
             if(!whoSignup)
             {
-              response = await fetch('https://localhost:5000/api/user/signup/hotel',{
+              console.log("Inside who sgnup")
+              response = await fetch('http://localhost:5000/api/auth/signup/hotel',{
+              // response = await fetch('http://localhost:5000/api/signup/hotel',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -131,8 +137,9 @@ function Auth() {
   //       }
   // }
   const findFormErrors = () => {
-    const { email_id, passwd } = isLoginMode;
-    const { name } = signupDetails;
+    const email_id = signupDetails.email;
+    const password = signupDetails.password
+    const name = signupDetails.name;
     const newErrors = {};
     // name errors
     if (!name || name == "" || name <= 0) newErrors.name = "Invalid Entry!";
@@ -142,13 +149,12 @@ function Auth() {
     else if (email_id > 30)
       newErrors.email_id = "Too many people! (Max size = 30)";
     // password errors
-    if (!passwd || passwd.length != 6) newErrors.passwd = "Invalid Password";
+    if (!password || password.length != 6) newErrors.password = "Invalid Password";
 
     return newErrors;
   };
   const Title = isLoginMode ? "Login" : "Sign Up";
 
-  console.log(isLoginMode, loginDetails, signupDetails, Title);
 
   return (
     <div className="Formbox">
@@ -216,10 +222,9 @@ function Auth() {
             </>
           ) : whoSignup ? (
             <>
-              <Form.Group className="mb-3" controlId="formBasicpasswd">
+              <Form.Group className="mb-3" controlId="formBasicpassword">
                 <Form.Label>User Type</Form.Label>
                 <Form.Control as="select" onChange={(event)=>{
-                    console.log(event.target.value);
                     setWhoSignup(!whoSignup);
                     // if (event.target.value == "Producer") {
                     //     console.log("Hello");
@@ -315,19 +320,18 @@ function Auth() {
                   type="password"
                   placeholder="Enter Password"
                   onChange={(e) => setField(true, "password", e.target.value)}
-                  id="passwd"
+                  id="password"
                 />
                 <Form.Control.Feedback id="invalid-feedback" type="invalid">
-                  Please provide a valid passwd.
+                  Please provide a valid password.
                 </Form.Control.Feedback>
               </Form.Group>
             </>
           ) : (
             <>
-              <Form.Group className="mb-3" controlId="formBasicpasswd">
+              <Form.Group className="mb-3" controlId="formBasicpassword">
                 <Form.Label>User Type</Form.Label>
                 <Form.Control as="select" onChange={(event)=>{
-                    console.log(event.target.value);
                     setWhoSignup(!whoSignup);
                     // if (event.target.value == "Producer") {
                     //     console.log("Hello");
@@ -428,10 +432,10 @@ function Auth() {
                   type="password"
                   placeholder="Enter Password"
                   onChange={(e) => setField(false, "password", e.target.value)}
-                  id="passwd"
+                  id="password"
                 />
                 <Form.Control.Feedback id="invalid-feedback" type="invalid">
-                  Please provide a valid passwd.
+                  Please provide a valid password.
                 </Form.Control.Feedback>
               </Form.Group>
             </>
