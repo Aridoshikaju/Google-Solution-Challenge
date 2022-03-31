@@ -92,7 +92,12 @@ function Auth() {
         const response_data = await response.json();
         localStorage.setItem('userData',JSON.stringify({email:response_data.email,who:response_data.who,name:response_data.name,token:response_data.token}))
         console.log("response from the server",response_data)
-        navigate(`/`)
+        if(response_data.who == 'hotel'){
+          navigate(`/provider`)
+        }
+        else{
+          navigate(`/`)
+        }
     }
     catch (err){
         console.log(err);

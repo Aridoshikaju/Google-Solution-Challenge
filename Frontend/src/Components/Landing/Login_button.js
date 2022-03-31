@@ -11,10 +11,10 @@ if (storedData && storedData.token) {
 
 function Login() {
   let login_button;
-  const [whoLogged, setWhoLogged] = useState(false); //NUll means no is looged in
-  if (!whoLogged && damm) {
-    setWhoLogged(damm);
-  }
+  const [whoLogged, setWhoLogged] = useState(damm); //NUll means no is looged in
+  // if (!whoLogged && damm) {
+  //   setWhoLogged(damm);
+  // }
   console.log("Stored data", storedData);
   // if (storedData && storedData.token) {
   //   setWhoLogged(storedData.who);
@@ -55,6 +55,13 @@ function Login() {
           Logout
         </Button>
           </Link>):(null)}
+          {(storedData && storedData.who=='hotel')?
+          (<Link to={"/provider"}>
+            <Button>
+              Send Food
+            </Button>
+          </Link>):(null)
+          }
       </Container>
     </div>
   );

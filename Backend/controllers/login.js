@@ -42,7 +42,10 @@ const Check_password = async (email, password, check_in) => {
     .collection(email)
     .doc("base");
   const base = await loc.get();
-  const ret_password = base.data().password;
+  const data = base.data()
+  console.log("checking for user in", check_in)
+  console.log("The data fetched",data)
+  const ret_password = data.password;
   if (ret_password == password) {
     return true;
   } else {
@@ -94,7 +97,7 @@ const signup_user = async (req, res, next) => {
 };
 
 const signup_hotel = async (req, res, next) => {
-  console.log("here")
+  // console.log("here")
   const { hotel_name, owner_name, email, pincode, phone_no, password } =
     req.body;
   newUser = {
@@ -110,7 +113,7 @@ const signup_hotel = async (req, res, next) => {
   const flag = await check_if_unique(email, "hotel");
   try {
     if (!flag) {
-      console.log("now fially here")
+      // console.log("now fially here")
       loc.collection(email).doc("base").set(newUser);
       console.log("New hotel user added successfully");
     } else {
@@ -138,7 +141,7 @@ const signup_hotel = async (req, res, next) => {
 };
 
 const login = async (req, res, next) => {
-  console.log("request for login has arrived")
+  // console.log("request for login has arrived")
   const { email, password } = req.body;
   const user = {
     email: email,
@@ -146,9 +149,12 @@ const login = async (req, res, next) => {
   };
   const loc = db.collection("account");
 
-  const user_flag = check_if_unique(email, "user");
-  const hotel_flag = check_if_unique(email, "hotel");
-  const admin_flag = check_if_unique(email, "admin");
+  const user_flag = await check_if_unique(email, "user");
+  const hotel_flag = await check_if_unique(email, "hotel");
+  const admin_flag = await check_if_unique(email, "admin");
+  // console.log("user",user_flag)
+  // console.log("hotel",hotel_flag)
+  // console.log("admin",admin_flag)
 
   let logged; //to decide who logged in
   if (user_flag) {
@@ -175,7 +181,7 @@ const login = async (req, res, next) => {
   } else {
     logged = null;
   }
-  console.log("logged:",logged)
+  // console.log("Who is logged in?",logged)
   try {
     if(logged!=null){
       token = jwt.sign(
@@ -189,7 +195,6 @@ const login = async (req, res, next) => {
   } catch {
     console.log("error creating token");
   }
-  console.log(logged)
   if (logged == null) {
     res.status(401).json({ error:"The user does not exist in our data base" });
   } else {

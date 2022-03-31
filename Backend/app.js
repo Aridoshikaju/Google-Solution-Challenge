@@ -3,8 +3,14 @@ const cors = require('cors')
 const bodyParser= require('body-parser');
 const {db} = require('./Database/config')
 
-const login = require('./Routes/login')
 const app = express();
+
+
+const login = require('./Routes/login')
+const producer = require('./Routes/producer')
+const producerload = require('./Routes/producerload')
+
+
 
 
 app.use(bodyParser.json())
@@ -23,6 +29,8 @@ app.use((req, res, next) => {
 
 
 app.use('/api/auth',login)
+app.use('/api/producerload',producerload);
+app.use('/api/producer',producer);
 
 // Middleware to handle error
 app.use((error,req,res,next)=>{
