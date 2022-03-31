@@ -1,3 +1,4 @@
+import { fontWeight } from "@mui/system";
 import React from "react";
 import { useState } from "react";
 import { Button, Container } from "react-bootstrap";
@@ -29,12 +30,16 @@ function Login() {
     <div>
       <Container fluid>
         {whoLogged ? (
-          <Button variant="primary" size="sm" active>
+          <label className="name-text" style={{padding: '1px 20px'}}>
             {login_button}
-          </Button>
+          </label>
+          // <button>
+          // </button>
+          // <Button variant="primary" size="bg" active>
+          // </Button>
         ) : (
           <Link to={"/api/auth"}>
-            <Button variant="primary" size="sm" active>
+            <Button variant="primary" size="bg" active>
               {login_button}
             </Button>
           </Link>
@@ -54,11 +59,18 @@ function Login() {
           >
           Logout
         </Button>
-          </Link>):(null)}
+          </Link>):(null)}{" "}
           {(storedData && storedData.who=='hotel')?
           (<Link to={"/provider"}>
             <Button>
               Send Food
+            </Button>
+          </Link>):(null)
+          }{" "}
+          {(storedData && storedData.who=='user')?
+          (<Link to={"/consumer"}>
+            <Button>
+              Get Food
             </Button>
           </Link>):(null)
           }

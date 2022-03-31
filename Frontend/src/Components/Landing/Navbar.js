@@ -18,7 +18,7 @@ function Navbar_top() {
     }
    return (
     <div>
-<Container fluid>
+{/* <Container fluid> */}
 <Navbar bg="light" expand="lg" expanded={expanded}>
   <Container fluid>
     <Navbar.Brand href="#">
@@ -29,7 +29,7 @@ function Navbar_top() {
         className="d-inline-block align-top"
         alt="React Bootstrap logo"
         />
-        Navbar scroll
+        Hunger Free
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="navbarScroll" onClick={ nab_bar_conrol } />
     <Navbar.Collapse id="navbarScroll">
@@ -61,7 +61,7 @@ function Navbar_top() {
     </Navbar.Collapse>
   </Container>
 </Navbar>
-</Container>
+{/* </Container> */}
     </div>
   )
 }

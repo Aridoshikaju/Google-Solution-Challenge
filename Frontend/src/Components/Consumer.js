@@ -1,5 +1,5 @@
 import React from 'react'
-import Slideshow from './Consumer/Slideshow'
+import Navbar from './Landing/Navbar'
 import Forms from './Consumer/Forms'
 // import Todav from './Consumer/Form'
 // import Table from './Consumer/Table'
@@ -8,7 +8,7 @@ import Forms from './Consumer/Forms'
 function Consumer() {
   return (
     <div>
-        <Slideshow/>
+        <Navbar/>
         <Forms/>
         {/* <br/>
          <Todav/> 

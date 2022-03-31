@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Slider from "react-slick";
 import First from '../images/deskyop.png'
 import Second from '../Shared/images/Screenshot 2021-12-06 163856.png'
-import Third from '../Shared/images/Profile.jpg'
+import Third from '../Shared/images/Profile.png'
 // import Second from '../images/Screenshot 2021-12-06 163856.png'
 // import Third from '../images/Profile.jpg'
 // import './Partner.css'

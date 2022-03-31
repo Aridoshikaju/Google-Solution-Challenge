@@ -9,6 +9,8 @@ const app = express();
 const login = require('./Routes/login')
 const producer = require('./Routes/producer')
 const producerload = require('./Routes/producerload')
+// const consumer = require('./controllers/consumer_ctrl')
+const consumer = require('./Routes/consumer')
 
 
 
@@ -31,6 +33,7 @@ app.use((req, res, next) => {
 app.use('/api/auth',login)
 app.use('/api/producerload',producerload);
 app.use('/api/producer',producer);
+app.use('/api/consumer',consumer);
 
 // Middleware to handle error
 app.use((error,req,res,next)=>{

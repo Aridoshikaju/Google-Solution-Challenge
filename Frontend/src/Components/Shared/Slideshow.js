@@ -1,7 +1,7 @@
 import React from 'react'
 import First from './images/deskyop.png'
 import Second from './images/Screenshot 2021-12-06 163856.png'
-import Third from './images/Profile.jpg'
+import Third from './images/Profile.png'
 import {Carousel} from 'react-bootstrap'
 
 
@@ -15,10 +15,10 @@ function Slideshow() {
       src={First}
       alt="First slide"
     />
-    <Carousel.Caption>
+    {/* <Carousel.Caption>
       <h3>First slide label</h3>
       <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-    </Carousel.Caption>
+    </Carousel.Caption> */}
   </Carousel.Item>
   <Carousel.Item>
     <img
@@ -27,10 +27,10 @@ function Slideshow() {
       alt="Second slide"
     />
 
-    <Carousel.Caption>
+    {/* <Carousel.Caption>
       <h3>Second slide label</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </Carousel.Caption>
+    </Carousel.Caption> */}
   </Carousel.Item>
   <Carousel.Item>
     <img
@@ -39,10 +39,10 @@ function Slideshow() {
       alt="Third slide"
     />
 
-    <Carousel.Caption>
+    {/* <Carousel.Caption>
       <h3>Third slide label</h3>
       <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-    </Carousel.Caption>
+    </Carousel.Caption> */}
   </Carousel.Item>
 </Carousel>
 </div>

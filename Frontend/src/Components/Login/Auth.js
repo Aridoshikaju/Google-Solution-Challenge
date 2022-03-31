@@ -95,8 +95,12 @@ function Auth() {
         if(response_data.who == 'hotel'){
           navigate(`/provider`)
         }
+        else if(response_data.who == 'user'){
+          navigate(`/consumer`)
+        }
         else{
           navigate(`/`)
+          localStorage.removeItem("userData")
         }
     }
     catch (err){

@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route} from "react-router-dom";
 import Landing from './Components/Landing';
 import Auth from './Components/Login'
 import Producer from './Components/Producer'
+import Consumer from './Components/Consumer'
+
 
 import './App.css';
 
@@ -40,7 +42,9 @@ function App() {
       {(whoLogged=="hotel")?(
         <Route path="provider"  element={<Producer/>} />
       ):(null)}
-        <Route path="consumer" element={"Consumer"}/>
+      {(whoLogged=="user")?(
+        <Route path="consumer" element={<Consumer/>}/>
+      ):(null)}
           {/* <Route path=":teamId" element={<Team />} /> */}
           <Route path="api/auth" element={<Auth />} />
           {/* <Route path="" element={<LeagueStandings />} /> */}
