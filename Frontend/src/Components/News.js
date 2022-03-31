@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import Cards from './news/Cards'
-import db from '../firebase_db';
+import db from './firebase_db';
 
 
 function News() {
