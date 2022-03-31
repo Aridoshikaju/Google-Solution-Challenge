@@ -1,0 +1,24 @@
+#form,
+h4 {
+  flex-wrap: wrap;
+  /* text-align: center; */
+  padding-left: auto;
+  padding-right: auto;
+}
+.label {
+  flex-wrap: wrap;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+#body {
+  text-align: center;
+  flex-wrap: wrap;
+  background-color: #edece7;
+}
+/* .button2 {
+  flex-wrap: wrap;
+  background-color: rgb(7, 14, 14);
+} */
+.button2 {
+  background-color: rgb(44, 45, 46);
+}
