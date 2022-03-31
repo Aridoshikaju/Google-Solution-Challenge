@@ -4,7 +4,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
-In the project directory,both backend and frontend you should run:
+First open the project directory,both backend and frontend and do 
+
+## `npm install`
+
+Then in the project directory,both backend and frontend you should run:
 
 ### `npm start`
 
